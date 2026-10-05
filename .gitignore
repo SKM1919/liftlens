@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Raw data is downloaded in code, never committed (licence + size)
+data/*
+!data/README.md
