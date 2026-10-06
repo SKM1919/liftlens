@@ -5,7 +5,7 @@ Most marketing models predict **who will convert**. LiftLens predicts
 whose behaviour actually changes.
 
 ## Status
-🚧 In progress: Medium tier (uplift models)
+In progress: Medium tier (uplift models)
 
 ## Roadmap
 - [x] Easy: Experiment analysis on Hillstrom (ATE, z-tests, CIs, power/MDE)
