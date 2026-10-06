@@ -10,3 +10,6 @@
 | 2026-10-06 | Use visit (not conversion) as the model target | Only ~0.9% convert, too few events to learn individual effects reliably (see MDE analysis) |
 | 2026-10-06 | Choose S-learner over T-learner | ~1.8x higher Qini AUC; T-learner badly misranked its lowest decile |
 | 2026-10-06 | Treat decile-level differences under ~4 pp as noise | ~640 customers per arm per decile gives about ±4 pp margin of error |
+| 2026-10-06 | Value a visit at $3.02 profit | Derived from experiment ($10.05 extra revenue per extra visit) × assumed 30% margin |
+| 2026-10-06 | Compare three channel costs ($0.05 / $0.20 / $0.40) | Shows when targeting pays: only the costly channel benefits |
+| 2026-10-06 | Recommend direct-mail targeting as a pilot only | Top-5% segment is ~640 test customers, so the profit estimate is noisy |
