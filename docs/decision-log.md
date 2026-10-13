@@ -13,3 +13,7 @@
 | 2026-10-06 | Value a visit at $3.02 profit | Derived from experiment ($10.05 extra revenue per extra visit) × assumed 30% margin |
 | 2026-10-06 | Compare three channel costs ($0.05 / $0.20 / $0.40) | Shows when targeting pays: only the costly channel benefits |
 | 2026-10-06 | Recommend direct-mail targeting as a pilot only | Top-5% segment is ~640 test customers, so the profit estimate is noisy |
+| 2026-10-13 | Load Criteo from Criteo's official Hugging Face repo | scikit-uplift's built-in download link returns 404 |
+| 2026-10-13 | Use a seeded 10% sample (~1.4M rows), read in chunks | Keeps memory low in free Colab while staying 33x larger than Hillstrom |
+| 2026-10-13 | Use visit as the Criteo model target | Control group has only 387 conversions vs ~8,100 visits |
+| 2026-10-13 | Exclude `exposure` from features and analysis | Post-assignment and behaviour-driven: would leak information and break randomisation |
