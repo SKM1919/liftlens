@@ -24,3 +24,6 @@
 | 2026-10-13 | Value an extra Criteo visit at ₹55.74 | 0.124 extra conversions per extra visit × assumed ₹1,500 AOV × 30% margin |
 | 2026-10-13 | Report incremental CAC (iCAC), not CAC | Counts only conversions the ad caused; plain CAC flatters campaigns by counting sure things |
 | 2026-10-13 | Recommend top 20–40% at ₹0.50 per user | Profit peaks at 40%; beyond that every extra rupee loses money |
+| 2026-10-13 | Features pass the randomisation check | AUC 0.510 when predicting treatment from features |
+| 2026-10-13 | Choose target % on a validation half; report profit on an untouched holdout | Removes in-sample optimism: honest ₹29,218 vs ₹30,097 in-sample |
+| 2026-10-13 | Keep S-learner; note X-learner as close second | S beats T in 96% and X in 90% of 50 bootstrap resamples |
