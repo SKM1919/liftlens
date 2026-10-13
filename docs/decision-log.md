@@ -17,3 +17,7 @@
 | 2026-10-13 | Use a seeded 10% sample (~1.4M rows), read in chunks | Keeps memory low in free Colab while staying 33x larger than Hillstrom |
 | 2026-10-13 | Use visit as the Criteo model target | Control group has only 387 conversions vs ~8,100 visits |
 | 2026-10-13 | Exclude `exposure` from features and analysis | Post-assignment and behaviour-driven: would leak information and break randomisation |
+| 2026-10-13 | Don't reweight rare outcomes | Reweighting distorts probabilities, and uplift is a difference of probabilities |
+| 2026-10-13 | Draw Qini curves with our own code | sklift's plotting module is incompatible with current scikit-learn |
+| 2026-10-13 | Choose S-learner on Criteo | Highest Qini AUC (0.081 vs 0.071 X-learner, 0.067 T-learner) |
+| 2026-10-13 | Compute profit from real test-set outcomes, not predicted uplift | All models under-predict the average effect by ~30% |
