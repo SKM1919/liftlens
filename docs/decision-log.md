@@ -34,3 +34,9 @@
 | 2026-10-13 | Monitor drift with two methods: our own PSI plus Evidently | PSI gives transparent alarm thresholds; Evidently's Wasserstein test is more sensitive and covers PSI's blind spot |
 | 2026-10-13 | Track prediction drift (share above cutoff) as the business alarm | Shows budget impact directly: Week B would cut targeting from ~24% to 15% |
 | 2026-10-13 | Known gap: our PSI returns 0 for features dominated by one value | Affects f1, f4, f5, f7, f10, f11; fix by giving the dominant value its own bucket |
+| 2026-10-14 | Python computes every number; the LLM writes only the words; a verifier checks every number | Stops invented figures reaching marketers |
+| 2026-10-14 | Calculate recommendations from economics, never by hand | A hand-typed recommendation for Moderate responders was wrong (₹0.09 profit vs ₹0.50 cost) |
+| 2026-10-14 | Verifier checks fact values only, with an explicit allow-list (95, 100) | Fact labels like "per_100" were silently approving numbers |
+| 2026-10-14 | Retry server errors with backoff, fail over across Gemini models, fall back to a template | 2.5-flash retired for new users; flash-latest overloaded; the template guarantees an answer |
+| 2026-10-14 | Store the Gemini API key in Colab Secrets, never in code | Notebooks are public on GitHub |
+| 2026-10-14 | Known limit: the verifier checks numbers, not the claims they're attached to | "93% of users" would pass; mitigate with template slots, a claim check, or human review |
