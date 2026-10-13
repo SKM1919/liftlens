@@ -7,7 +7,7 @@ whose behaviour actually changes.
 ## Headline result
 On an untouched holdout of real advertising data, targeting the users LiftLens ranks highest cut ad spend by **76%**, kept **~93% of the campaign's extra visits**, and raised profit **~5.7x** compared with targeting everyone.
 
-[Business case](docs/business-case.md) · [Online test plan](docs/online-test-plan.md) · [Decision log](docs/decision-log.md)
+👉 [PRD](docs/prd.md) · [Business case](docs/business-case.md) · [Online test plan](docs/online-test-plan.md) · [Decision log](docs/decision-log.md)
 
 ## Status
 All four tiers complete. The live test is designed and pre-registered, not yet run.
