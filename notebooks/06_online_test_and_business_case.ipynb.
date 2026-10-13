@@ -1,0 +1,128 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMLD+57vs7Arwfgj5kJEizy",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/SKM1919/liftlens/blob/main/notebooks/06_online_test_and_business_case.ipynb.\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "XhZnyswbskSp"
+      },
+      "outputs": [],
+      "source": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# LiftLens: Online Test Design and Business Case\n",
+        "Goal: design the live experiment that proves LiftLens works, and quantify the business case."
+      ],
+      "metadata": {
+        "id": "WGkCPKRUsnni"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from scipy.stats import norm\n",
+        "import numpy as np\n",
+        "\n",
+        "# ---- Inputs from earlier lessons ----\n",
+        "VALUE_PER_VISIT = 55.74              # Lesson 10 (₹ profit per extra visit)\n",
+        "VISIT_RATE = 0.0485                  # treated visit rate, Lesson 8\n",
+        "PROFIT_POLICY = 29_218 / 100_000     # Lesson 11 holdout, ₹ per user\n",
+        "PROFIT_EVERYONE = 5_104 / 100_000    # Lesson 11 holdout, ₹ per user\n",
+        "\n",
+        "# ---- Assumptions (state them openly) ----\n",
+        "DAILY_USERS = 200_000                # eligible users per day\n",
+        "ARM_SHARE = 0.45                     # share of users in each main arm\n",
+        "TEST_DAYS = 14                       # two full weeks, to cover weekday/weekend patterns\n",
+        "\n",
+        "z = norm.ppf(0.975) + norm.ppf(0.80)                     # 95% confidence, 80% power\n",
+        "sd = VALUE_PER_VISIT * np.sqrt(VISIT_RATE * (1 - VISIT_RATE))\n",
+        "gain = PROFIT_POLICY - PROFIT_EVERYONE\n",
+        "\n",
+        "def n_per_arm(diff):\n",
+        "    return int(np.ceil(2 * sd**2 * z**2 / diff**2))\n",
+        "\n",
+        "print(f\"Expected profit gain: ₹{gain:.3f} per user\\n\")\n",
+        "for label, d in [('the full expected gain', gain), ('half the expected gain', gain / 2)]:\n",
+        "    n = n_per_arm(d)\n",
+        "    print(f\"To detect {label}: {n:,} users per arm (~{n / (DAILY_USERS * ARM_SHARE):.1f} days)\")\n",
+        "\n",
+        "n_test = int(DAILY_USERS * ARM_SHARE * TEST_DAYS)\n",
+        "mde_profit = z * sd * np.sqrt(2 / n_test)\n",
+        "mde_visit = z * np.sqrt(2 * VISIT_RATE * (1 - VISIT_RATE) / n_test)\n",
+        "\n",
+        "print(f\"\\nA {TEST_DAYS}-day test gives {n_test:,} users per arm, so it can detect:\")\n",
+        "print(f\"  a profit difference of ₹{mde_profit:.3f} per user ({mde_profit / gain:.0%} of the expected gain)\")\n",
+        "print(f\"  a visit-rate difference of {mde_visit * 100:.3f} pp (guardrail check)\")\n",
+        "\n",
+        "print(\"\\nPlanned looks (O'Brien-Fleming, two looks):\")\n",
+        "print(\"  Day 7:  stop early only if |z| > 2.797  (p < 0.005)\")\n",
+        "print(\"  Day 14: final decision if |z| > 1.977   (p < 0.048)\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "RMCs5jR6spdh",
+        "outputId": "fe055843-3252-458e-b307-c39ce77163fe"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Expected profit gain: ₹0.241 per user\n",
+            "\n",
+            "To detect the full expected gain: 38,707 users per arm (~0.4 days)\n",
+            "To detect half the expected gain: 154,826 users per arm (~1.7 days)\n",
+            "\n",
+            "A 14-day test gives 1,260,000 users per arm, so it can detect:\n",
+            "  a profit difference of ₹0.042 per user (18% of the expected gain)\n",
+            "  a visit-rate difference of 0.076 pp (guardrail check)\n",
+            "\n",
+            "Planned looks (O'Brien-Fleming, two looks):\n",
+            "  Day 7:  stop early only if |z| > 2.797  (p < 0.005)\n",
+            "  Day 14: final decision if |z| > 1.977   (p < 0.048)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "m7v8bmkxsrQF"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
