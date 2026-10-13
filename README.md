@@ -5,36 +5,31 @@ Most marketing models predict **who will convert**. LiftLens predicts
 whose behaviour actually changes.
 
 ## Status
-In progress: Hard tier (Criteo, advanced causal models)
+🚧 In progress: Hardest tier (scoring service, monitoring, LLM explainer, business case)
 
 ## Roadmap
 - [x] Easy: Experiment analysis on Hillstrom (ATE, z-tests, CIs, power/MDE)
 - [x] Medium: T/S-learner uplift models, Qini/AUUC, targeting policy
-- [ ] Hard: Criteo Uplift, X-learner/causal forest, profit curve, leakage audit
+- [x] Hard: Criteo Uplift (1.4M rows), T/S/X-learners, budget-constrained profit curve, leakage audit
 - [ ] Hardest: FastAPI + Docker service, drift monitoring, LLM explainer, business case
 
 ## Key results so far
 
-**Experiment (Easy tier)**
+**Experiment (Easy tier, Hillstrom)**
 - **Mens email** lifted conversion by **+0.68 pp** (95% CI: 0.50 to 0.86), more than doubling the 0.57% baseline.
 - **Womens email** lifted conversion by **+0.31 pp** (95% CI: 0.15 to 0.47): real, but close to the experiment's detection limit (MDE 0.20 pp).
 
-**Uplift models and targeting (Medium tier)**
+**Uplift targeting (Medium tier, Hillstrom)**
 - The **S-learner** ranked customers better than the T-learner (Qini AUC 0.0097 vs 0.0055).
-- **Targeting only pays off when contact is costly.** For email ($0.05), contacting everyone is optimal (~$1,800 profit per 10,000 customers). For direct mail ($0.40), contacting everyone **loses ~$1,700** per 10,000, while targeting the model's top 5% turns that into a small profit.
+- **Targeting only paid off for the costly channel**: for direct mail, contacting everyone **loses ~$1,700** per 10,000 customers, while targeting the top 5% turns a small profit.
 
-Notebooks: [Experiment analysis](notebooks/01_hillstrom_exploration.ipynb) · [Uplift models](notebooks/02_uplift_models.ipynb)
+**Uplift at scale (Hard tier, Criteo)**
+- **Strong heterogeneity:** targeting the top 20% of users captures ~75% of all extra visits; the top 30% respond **2.7x** more strongly than average.
+- **Budget policy:** at ₹0.50 per user, targeting the top ~24% earns **₹29,200 profit per 100,000 users** on an untouched holdout, vs **₹5,100** for targeting everyone (~5.7x).
+- **Incremental CAC roughly halves** with targeting (₹196 vs ₹462 at ₹0.50 per user).
+- **Leakage audit passed:** features can't predict treatment (AUC 0.51); excluding `exposure` avoided overstating the effect ~38x; the honest holdout profit is within 3% of the in-sample estimate.
+
+👉 Notebooks: [Experiment analysis](notebooks/01_hillstrom_exploration.ipynb) · [Uplift models](notebooks/02_uplift_models.ipynb) · [Criteo at scale](notebooks/03_criteo_uplift.ipynb)
 
 ## Data
-
-Raw data is not stored in this repo. It is downloaded in code.
-
-- **Hillstrom Email Dataset** (64,000 customers, randomised email trial).
-  Source: Kevin Hillstrom, MineThatData (2008). No stated licence, so it is linked rather than redistributed.
-  Loaded via `sklift.datasets.fetch_hillstrom()`.
-
-- **Criteo Uplift Dataset v2.1** (~14M users, randomised display-ad incrementality test).
-  Source: Criteo AI Lab, via the official [Hugging Face repo](https://huggingface.co/datasets/criteo/criteo-uplift).
-  Licence: CC BY-NC-SA 4.0 (non-commercial, attribution required).
-  Citation: Diemert, Betlei, Renaudin & Amini, *A Large Scale Benchmark for Uplift Modeling*, AdKDD 2018.
-  This project uses a seeded 10% random sample (~1.4M rows), drawn in chunks during loading.
+See [`data/README.md`](data/README.md).
