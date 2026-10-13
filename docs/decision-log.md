@@ -31,3 +31,6 @@
 | 2026-10-13 | Pin xgboost==3.4.1 and include scikit-learn | Same version that saved the model; XGBClassifier needs scikit-learn |
 | 2026-10-13 | Turn the "top 24%" policy into a score cutoff (0.00316) | A live service scores users one at a time; cutoff computed on the validation half |
 | 2026-10-13 | Return the calibration note with every response | Scores run ~30% low, so consumers must not treat them as exact effect sizes |
+| 2026-10-13 | Monitor drift with two methods: our own PSI plus Evidently | PSI gives transparent alarm thresholds; Evidently's Wasserstein test is more sensitive and covers PSI's blind spot |
+| 2026-10-13 | Track prediction drift (share above cutoff) as the business alarm | Shows budget impact directly: Week B would cut targeting from ~24% to 15% |
+| 2026-10-13 | Known gap: our PSI returns 0 for features dominated by one value | Affects f1, f4, f5, f7, f10, f11; fix by giving the dominant value its own bucket |
