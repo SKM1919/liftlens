@@ -40,3 +40,8 @@
 | 2026-10-14 | Retry server errors with backoff, fail over across Gemini models, fall back to a template | 2.5-flash retired for new users; flash-latest overloaded; the template guarantees an answer |
 | 2026-10-14 | Store the Gemini API key in Colab Secrets, never in code | Notebooks are public on GitHub |
 | 2026-10-14 | Known limit: the verifier checks numbers, not the claims they're attached to | "93% of users" would pass; mitigate with template slots, a claim check, or human review |
+| 2026-10-14 | Validate with a live three-arm test: policy / everyone / 10% no-ad holdout | Offline results can be optimistic; the holdout also keeps randomised data for retraining |
+| 2026-10-14 | Primary metric: profit per user; guardrails on visits, drift and service health | Matches the business goal; guardrails stop "profitable but harmful" launches |
+| 2026-10-14 | Run 14 days even though ~1 day gives enough power | Covers two weekly cycles and gives power for the visit guardrail |
+| 2026-10-14 | Two planned looks with O'Brien–Fleming thresholds | Allows a safe early stop without inflating false positives |
+| 2026-10-14 | Present annual value as an estimate pending the live test | Offline gains must be confirmed before any budget decision |
