@@ -21,3 +21,6 @@
 | 2026-10-13 | Draw Qini curves with our own code | sklift's plotting module is incompatible with current scikit-learn |
 | 2026-10-13 | Choose S-learner on Criteo | Highest Qini AUC (0.081 vs 0.071 X-learner, 0.067 T-learner) |
 | 2026-10-13 | Compute profit from real test-set outcomes, not predicted uplift | All models under-predict the average effect by ~30% |
+| 2026-10-13 | Value an extra Criteo visit at ₹55.74 | 0.124 extra conversions per extra visit × assumed ₹1,500 AOV × 30% margin |
+| 2026-10-13 | Report incremental CAC (iCAC), not CAC | Counts only conversions the ad caused; plain CAC flatters campaigns by counting sure things |
+| 2026-10-13 | Recommend top 20–40% at ₹0.50 per user | Profit peaks at 40%; beyond that every extra rupee loses money |
