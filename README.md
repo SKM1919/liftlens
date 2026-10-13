@@ -5,7 +5,7 @@ Most marketing models predict **who will convert**. LiftLens predicts
 whose behaviour actually changes.
 
 ## Status
-🚧 In progress: Hardest tier (scoring service, monitoring, LLM explainer, business case)
+🚧 In progress: Hardest tier (scoring service ✅, monitoring, LLM explainer, business case)
 
 ## Roadmap
 - [x] Easy: Experiment analysis on Hillstrom (ATE, z-tests, CIs, power/MDE)
@@ -30,6 +30,25 @@ whose behaviour actually changes.
 - **Leakage audit passed:** features can't predict treatment (AUC 0.51); excluding `exposure` avoided overstating the effect ~38x; the honest holdout profit is within 3% of the in-sample estimate.
 
 👉 Notebooks: [Experiment analysis](notebooks/01_hillstrom_exploration.ipynb) · [Uplift models](notebooks/02_uplift_models.ipynb) · [Criteo at scale](notebooks/03_criteo_uplift.ipynb)
+
+## Run the scoring service
+
+The trained S-learner is served by a FastAPI app packaged with Docker.
+
+```bash
+docker build -t liftlens-api .
+docker run -d -p 8000:8000 --name liftlens liftlens-api
+
+# Check it's alive
+curl http://localhost:8000/health
+
+# Score two example users
+curl -X POST http://localhost:8000/score \
+  -H "Content-Type: application/json" \
+  -d @examples/sample_request.json
+```
+
+Each user gets an `uplift_score` and a `target` / `skip` decision (targets the top 24%, the profit-maximising share from the holdout analysis). Interactive API docs are available at `http://localhost:8000/docs`.
 
 ## Data
 See [`data/README.md`](data/README.md).

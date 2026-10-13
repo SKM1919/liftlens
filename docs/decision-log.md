@@ -27,3 +27,7 @@
 | 2026-10-13 | Features pass the randomisation check | AUC 0.510 when predicting treatment from features |
 | 2026-10-13 | Choose target % on a validation half; report profit on an untouched holdout | Removes in-sample optimism: honest ₹29,218 vs ₹30,097 in-sample |
 | 2026-10-13 | Keep S-learner; note X-learner as close second | S beats T in 96% and X in 90% of 50 bootstrap resamples |
+| 2026-10-13 | Serve the model with FastAPI inside Docker, on Python 3.13 | Matches Colab's training environment exactly; the Codespace runs Python 3.14 |
+| 2026-10-13 | Pin xgboost==3.4.1 and include scikit-learn | Same version that saved the model; XGBClassifier needs scikit-learn |
+| 2026-10-13 | Turn the "top 24%" policy into a score cutoff (0.00316) | A live service scores users one at a time; cutoff computed on the validation half |
+| 2026-10-13 | Return the calibration note with every response | Scores run ~30% low, so consumers must not treat them as exact effect sizes |
