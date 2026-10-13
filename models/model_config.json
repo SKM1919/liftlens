@@ -1,0 +1,24 @@
+{
+  "model": "S-learner (XGBoost) trained on a 10% sample of Criteo Uplift v2.1",
+  "features": [
+    "f0",
+    "f1",
+    "f2",
+    "f3",
+    "f4",
+    "f5",
+    "f6",
+    "f7",
+    "f8",
+    "f9",
+    "f10",
+    "f11"
+  ],
+  "target": "visit",
+  "target_share": 0.24,
+  "score_cutoff": 0.003158746287226677,
+  "cost_per_user_inr": 0.5,
+  "value_per_extra_visit_inr": 55.74,
+  "calibration_note": "Predicted uplift under-estimates the true average effect by ~30%. Use scores for ranking, not as exact effect sizes.",
+  "xgboost_version": "3.4.1"
+}
